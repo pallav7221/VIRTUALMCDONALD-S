@@ -25,13 +25,13 @@ function order(food) {
     var status = "open";
     var promise = new Promise(function (resolve, reject) {
         var time = Math.round(Math.random() * 5000);
-        var h3 = document.createElement("h3");
-        h3.innerHTML = `Please Wait for your order and your Item is ${food} and order number: ${Math.ceil(time / 1000)} `;
-        document.querySelector("#OrderProgress").append(h3);
         if (status == "closed") {
             reject("Sorry, shop are closed");
         }
         else {
+            var h3 = document.createElement("h3");
+            h3.innerHTML = `Please Wait for your order and your Item is ${food} and order number: ${Math.ceil(time / 1000)} `;
+            document.querySelector("#OrderProgress").append(h3);
             setTimeout(function () {
                 resolve("Your order for " + food + " is ready");
 
@@ -41,9 +41,12 @@ function order(food) {
 
     promise.then(function (message) {
         var div = document.createElement("div");
+        var p = document.createElement('p');
+        p.innerText = message;
+
         var img = document.createElement("img");
         img.src = images[food];
-        div.append(img);
+        div.append(img,p);
         document.querySelector("#displayItem").append(div);
         document.querySelector("#OrderProgress").innerText = "";
         document.querySelector("#container>form").reset();
